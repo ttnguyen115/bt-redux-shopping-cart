@@ -1,11 +1,13 @@
 import { createStore } from "redux";
 import { combineReducers } from "redux";
-import productReducer from './../redux/reducers/productReducer';
-import cartReducer from './../redux/reducers/cartReducer';
+import productReducer from './reducers/productReducer';
+import cartReducer from './reducers/cartReducer';
+import glassReducer from './reducers/glassReducer';
 
 const rootReducer = combineReducers({
   productReducer,
-  cartReducer
+  cartReducer,
+  glassReducer
 });
 
 export const store = createStore(

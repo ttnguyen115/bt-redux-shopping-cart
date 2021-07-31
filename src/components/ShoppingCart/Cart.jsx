@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { createAction } from './../redux/actions/createAction';
+import { createAction } from '../../redux/actions/createAction';
 
 class Cart extends React.Component {
     handleAddToCart = (id) => {
