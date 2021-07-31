@@ -7,10 +7,15 @@ class Cart extends React.Component {
         this.props.dispatch(createAction("ADD_QUANTITY", id));
     }
 
-    handleRemoveFromCart = (id, quantity) => {
+    handleRemoveQuantity = (id, quantity) => {
         quantity > 1
         ? this.props.dispatch(createAction("REMOVE_QUANTITY", id))
-        : this.props.dispatch(createAction("REMOVE_PRODUCT", id)) 
+        : this.props.dispatch(createAction("REMOVE_PRODUCT", { id: id, quantity: 1})) 
+    }
+
+    handleRemoveProduct = (id, quantity) => {
+        let confirmation = global.confirm('Are you sure you want to remove this product?');
+        if (confirmation) this.props.dispatch(createAction("REMOVE_PRODUCT", { id: id, quantity: quantity}));
     }
 
     render() {
@@ -35,6 +40,7 @@ class Cart extends React.Component {
                                         <th>Quantity</th>
                                         <th>Price</th>
                                         <th>Total</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -45,12 +51,15 @@ class Cart extends React.Component {
                                                 <td>{product.name}</td>
                                                 <img src={product.img} alt="img" style={{ height: '250px', width: '200px' }} />
                                                 <td className="">
-                                                    <button className="btn btn-info" onClick={() => this.handleRemoveFromCart(product.id, product.quantity)}>-</button>
+                                                    <button className="btn btn-info" onClick={() => this.handleRemoveQuantity(product.id, product.quantity)}>-</button>
                                                     <span className="m-2">{product.quantity}</span>
                                                     <button className="btn btn-info" onClick={() => this.handleAddToCart(product.id)}>+</button>
                                                 </td>
                                                 <td>{product.price}</td>
                                                 <td>{product.price * product.quantity}</td>
+                                                <td>
+                                                    <button className="btn btn-info" onClick={() => this.handleRemoveProduct(product.id, product.quantity)}>Remove</button>
+                                                </td>
                                             </tr>
                                         ))
                                     }
